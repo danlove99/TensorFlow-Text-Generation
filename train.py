@@ -9,7 +9,7 @@ import numpy as np
 
 tokenizer = Tokenizer()
 
-data = open('south-park-scripts.txt').read()
+data = open('lyrics.txt').read()
 
 corpus = data.lower().split("\n")
 
@@ -38,9 +38,6 @@ ys = tf.keras.utils.to_categorical(labels, num_classes=total_words)
 model = Sequential()
 model.add(Embedding(total_words, 100, input_length=max_sequence_len-1))
 model.add(Bidirectional(LSTM(150, return_sequences=True)))
-model.add(Bidirectional(LSTM(150, return_sequences=True)))
-model.add(Bidirectional(LSTM(150, return_sequences=True)))
-model.add(Bidirectional(LSTM(150, return_sequences=True)))
 model.add(Bidirectional(LSTM(150)))
 model.add(Dense(total_words, activation='softmax'))
 adam = Adam(lr=0.01)
@@ -51,8 +48,8 @@ history = model.fit(xs, ys, epochs=20, verbose=1)
 print(model)
 
 
-seed_text = "Hey kyle,"
-next_words = 100
+seed_text = "Hey "
+next_words = 30
   
 for _ in range(next_words):
 	token_list = tokenizer.texts_to_sequences([seed_text])[0]
